@@ -30,82 +30,96 @@ export const LegalModal: React.FC<LegalModalProps> = ({ type, onClose }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 bg-slate-900/60 backdrop-blur-md"
+          className="fixed inset-0 bg-black/70 backdrop-blur-sm cursor-pointer"
         />
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          className="relative w-full max-w-2xl bg-white border border-slate-200 rounded-3xl shadow-2xl z-10 text-left p-6 sm:p-8 max-h-[85vh] overflow-y-auto"
+          exit={{ opacity: 0, scale: 0.96 }}
+          className="relative w-full max-w-2xl bg-[#FFFFFF] border border-[#080808] shadow-2xl z-10 text-left p-6 sm:p-10 max-h-[85vh] overflow-y-auto"
         >
-          <div className="flex items-center justify-between pb-4 border-b border-slate-200 mb-6">
+          <div className="flex items-center justify-between pb-4 border-b border-[#E5E7EB] mb-6">
             <div className="flex items-center gap-2.5">
-              {type === 'privacy' ? (
-                <Shield className="w-5 h-5 text-cyan-600" />
-              ) : (
-                <FileText className="w-5 h-5 text-cyan-600" />
-              )}
-              <h3 className="text-xl font-extrabold text-slate-900 font-heading">
-                {type === 'privacy' ? 'Privacy Policy' : 'Terms & Conditions'}
-              </h3>
+              <span className="font-mono text-xs font-bold text-[#00C2FF] uppercase">
+                TST // LEGAL COMPLIANCE
+              </span>
             </div>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-slate-800 bg-slate-100 hover:bg-slate-200 transition-colors"
+              className="p-1.5 text-neutral-400 hover:text-[#080808] border border-[#E5E7EB] hover:border-[#080808] transition-colors cursor-pointer"
               aria-label="Close legal modal"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          <div className="space-y-4 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+          <h2 className="text-2xl font-black text-[#080808] font-heading uppercase mb-4">
+            {type === 'privacy' ? 'Privacy Policy' : 'Terms of Service'}
+          </h2>
+
+          <div className="space-y-4 text-xs sm:text-sm text-[#6B7280] leading-relaxed">
+            <p>
+              Last Updated: March 2026. This policy governs digital operations by <strong>THE STAR TECHNOLOGY</strong> (registered studio address: {COMPANY_INFO.address.full}).
+            </p>
+
             {type === 'privacy' ? (
               <>
+                <h3 className="font-heading font-bold text-sm text-[#080808] uppercase pt-2">
+                  1. Information Collection &amp; Scope
+                </h3>
                 <p>
-                  <strong className="text-slate-900">THE STAR TECHNOLOGY</strong> ("we", "us", or "our") respects the privacy of our clients and website visitors. This Privacy Policy clarifies how information submitted through our website and inquiry forms is treated.
+                  We only gather information provided directly through our intake channels, including your name, email address, phone/WhatsApp number, project requirements, and communication logs. We do not sell, rent, or lease personal information to any third parties.
                 </p>
-                <h4 className="text-slate-900 font-bold pt-2">1. Information We Collect</h4>
+
+                <h3 className="font-heading font-bold text-sm text-[#080808] uppercase pt-2">
+                  2. Use of Information
+                </h3>
                 <p>
-                  When you submit an inquiry through our contact form, we collect your name, business name, email address, phone number, and any project details you voluntarily provide.
+                  Information submitted is strictly utilized to communicate project timelines, technical proposals, scope updates, and deliver software engineering services requested by you.
                 </p>
-                <h4 className="text-slate-900 font-bold pt-2">2. How We Use Your Information</h4>
+
+                <h3 className="font-heading font-bold text-sm text-[#080808] uppercase pt-2">
+                  3. Data Security
+                </h3>
                 <p>
-                  Information gathered is used exclusively to respond to your project inquiries, deliver tailored proposals, and coordinate web development and digital services. We do not sell, rent, or trade your personal or business data to third-party advertisers.
-                </p>
-                <h4 className="text-slate-900 font-bold pt-2">3. Direct Inquiries & Communications</h4>
-                <p>
-                  For any privacy-related queries, you may reach our founder directly at <a href={`mailto:${COMPANY_INFO.email}`} className="text-cyan-700 font-semibold underline">{COMPANY_INFO.email}</a> or via phone at {COMPANY_INFO.formattedPhone}.
+                  We implement industry-standard transmission encryption, secure hosting configurations, and access restrictions to protect intellectual property and private client records.
                 </p>
               </>
             ) : (
               <>
+                <h3 className="font-heading font-bold text-sm text-[#080808] uppercase pt-2">
+                  1. Engagement &amp; Deliverables
+                </h3>
                 <p>
-                  Welcome to <strong className="text-slate-900">THE STAR TECHNOLOGY</strong>. By engaging with our website and digital design services, you agree to the following terms and guidelines.
+                  Project engagements are defined through mutual technical discovery. Statements of work outlining features, payment milestones, timelines, and deployment criteria are agreed prior to engineering sprints.
                 </p>
-                <h4 className="text-slate-900 font-bold pt-2">1. Scope of Digital Services</h4>
+
+                <h3 className="font-heading font-bold text-sm text-[#080808] uppercase pt-2">
+                  2. Intellectual Property Rights
+                </h3>
                 <p>
-                  THE STAR TECHNOLOGY provides bespoke website development, user interface design, and digital consulting. Specific project scopes, timelines, deliverables, and payment milestones are established collaboratively upon project agreement.
+                  Upon complete settlement of agreed project milestone invoices, full ownership of client-specific custom code, design tokens, and digital assets transitions directly to the client.
                 </p>
-                <h4 className="text-slate-900 font-bold pt-2">2. Intellectual Property</h4>
+
+                <h3 className="font-heading font-bold text-sm text-[#080808] uppercase pt-2">
+                  3. Maintenance &amp; Warranties
+                </h3>
                 <p>
-                  Upon final payment settlement for completed web engineering or design work, full ownership of agreed client-specific assets and content is transferred to the client, while underlying open-source libraries remain subject to their respective licenses.
-                </p>
-                <h4 className="text-slate-900 font-bold pt-2">3. Jurisdiction & Business Office</h4>
-                <p>
-                  THE STAR TECHNOLOGY operates from {COMPANY_INFO.address.full}. Governed under applicable regulations of Maharashtra, India.
+                  Standard deployment packages include post-launch support and bug fixes for the agreed baseline scope. Long-term maintenance and infrastructure monitoring are provided under ongoing service agreements.
                 </p>
               </>
             )}
-          </div>
 
-          <div className="pt-6 mt-6 border-t border-slate-200 text-right">
-            <button
-              onClick={onClose}
-              className="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-800 transition-colors"
-            >
-              Close
-            </button>
+            <div className="pt-6 border-t border-[#E5E7EB] flex items-center justify-between font-mono text-[11px] text-[#6B7280]">
+              <span>QUESTIONS? CONTACT {COMPANY_INFO.email}</span>
+              <button
+                onClick={onClose}
+                className="px-4 py-2 bg-[#080808] text-white hover:bg-[#00C2FF] hover:text-[#080808] font-heading font-bold uppercase transition-colors"
+              >
+                ACKNOWLEDGE &amp; CLOSE
+              </button>
+            </div>
           </div>
         </motion.div>
       </div>

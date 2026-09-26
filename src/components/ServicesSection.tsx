@@ -1,217 +1,271 @@
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
-import { 
-  Share2, 
-  PenTool, 
-  Database, 
-  Code, 
-  Search, 
-  TrendingUp, 
-  Globe2, 
-  ShoppingBag, 
-  Monitor, 
-  Smartphone, 
-  FileText,
-  ArrowRight,
-  Sparkles,
-  Layers
-} from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { ArrowUpRight, CheckCircle2, ChevronRight, Layers, Smartphone, Cpu, Layout, Bot, ShoppingBag, TrendingUp, Search, Palette, Compass, X } from 'lucide-react';
 import { SERVICES } from '../data/companyData';
 import { Service } from '../types';
-import { ServiceDetailModal } from './ServiceDetailModal';
 
 interface ServicesSectionProps {
-  onSelectService?: (serviceName: string) => void;
+  onSelectService?: (serviceTitle: string) => void;
   onViewPortfolio?: () => void;
 }
 
-export const ServicesSection: React.FC<ServicesSectionProps> = ({ 
-  onSelectService,
-  onViewPortfolio,
-}) => {
-  const [selectedService, setSelectedService] = useState<Service | null>(null);
-  const [filterCategory, setFilterCategory] = useState<string>('All');
+export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectService, onViewPortfolio }) => {
+  const [activeModalService, setActiveModalService] = useState<Service | null>(null);
 
-  const getServiceIcon = (id: string) => {
-    switch (id) {
-      case 'social-media-management':
-        return <Share2 className="w-5 h-5 text-cyan-600" />;
-      case 'logo-design':
-        return <PenTool className="w-5 h-5 text-sky-600" />;
-      case 'dynamic-website-development':
-        return <Database className="w-5 h-5 text-blue-600" />;
-      case 'static-website-development':
-        return <Code className="w-5 h-5 text-teal-600" />;
-      case 'seo-search-engine-optimization':
-        return <Search className="w-5 h-5 text-emerald-600" />;
-      case 'digital-marketing':
-        return <TrendingUp className="w-5 h-5 text-amber-600" />;
-      case 'domain-registration':
-        return <Globe2 className="w-5 h-5 text-indigo-600" />;
-      case 'ecommerce-website':
-        return <ShoppingBag className="w-5 h-5 text-purple-600" />;
-      case 'web-development':
-        return <Monitor className="w-5 h-5 text-cyan-600" />;
-      case 'app-development':
-        return <Smartphone className="w-5 h-5 text-blue-600" />;
-      case 'content-creation':
-        return <FileText className="w-5 h-5 text-pink-600" />;
-      default:
-        return <Sparkles className="w-5 h-5 text-cyan-600" />;
+  const getServiceIcon = (iconType?: string) => {
+    switch (iconType) {
+      case 'code': return <Layers className="w-5 h-5" />;
+      case 'device': return <Smartphone className="w-5 h-5" />;
+      case 'cpu': return <Cpu className="w-5 h-5" />;
+      case 'layout': return <Layout className="w-5 h-5" />;
+      case 'cart': return <ShoppingBag className="w-5 h-5" />;
+      case 'network': return <TrendingUp className="w-5 h-5" />;
+      case 'storefront': return <Search className="w-5 h-5" />;
+      default: return <Compass className="w-5 h-5" />;
     }
   };
 
-  const categories = ['All Services', 'Web & App', 'Design & Brand', 'Marketing & SEO'];
+  const handleOpenService = (service: Service) => {
+    setActiveModalService(service);
+  };
 
-  const filteredServices = SERVICES.filter((s) => {
-    if (filterCategory === 'All Services') return true;
-    if (filterCategory === 'Web & App') {
-      return (
-        s.id.includes('website') || 
-        s.id.includes('web-dev') || 
-        s.id.includes('app') || 
-        s.id.includes('ecommerce') ||
-        s.id.includes('domain')
-      );
+  const handleStartProject = (service: Service) => {
+    setActiveModalService(null);
+    if (onSelectService) {
+      onSelectService(service.title);
+    } else {
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth' });
+      }
     }
-    if (filterCategory === 'Design & Brand') {
-      return s.id.includes('logo') || s.id.includes('content');
-    }
-    if (filterCategory === 'Marketing & SEO') {
-      return s.id.includes('seo') || s.id.includes('marketing') || s.id.includes('social');
-    }
-    return true;
-  });
+  };
 
   return (
-    <section id="services" className="py-24 sm:py-32 relative bg-[#f8fafc] border-t border-slate-200/80">
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/4 left-10 w-[500px] h-[500px] bg-cyan-400/10 rounded-full blur-[140px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="services" className="py-24 sm:py-32 bg-[#F4F5F7] border-b border-[#E5E7EB] relative">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
         
-        {/* Section Header Matching Reference */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-8">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-50 border border-cyan-200 text-cyan-800 text-xs font-bold tracking-wider uppercase mb-4 shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-cyan-600" />
-              <span>WHAT WE DO</span>
-            </div>
-            
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight font-heading">
-              We're Provide Smart Solution
-            </h2>
-            
-            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl font-normal">
-              From web development to SEO and digital marketing, we build practical digital systems that help businesses grow faster and operate smarter.
-            </p>
-          </div>
-
-          {/* 11 Core Services Badge & Filters */}
-          <div className="flex flex-col items-start lg:items-end gap-4">
-            <div className="inline-flex items-center gap-3.5 px-5 py-3 rounded-2xl bg-white border border-cyan-300 shadow-sm text-left">
-              <span className="font-heading font-extrabold text-3xl text-cyan-600 leading-none">
-                11
+        {/* Section Header */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 border-b border-[#E5E7EB] gap-6 mb-16">
+          <div>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="font-mono text-sm font-bold text-[#00C2FF]">02</span>
+              <span className="text-neutral-400 font-mono text-sm">/</span>
+              <span className="font-mono text-sm tracking-[0.2em] font-semibold text-[#080808] uppercase">
+                SERVICES
               </span>
-              <div className="text-xs leading-tight">
-                <strong className="text-slate-900 block font-bold">Core Services</strong>
-                <span className="text-slate-500">across every digital layer</span>
-              </div>
             </div>
-
-            {/* Filter pills */}
-            <div className="flex flex-wrap gap-2">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setFilterCategory(cat)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
-                    filterCategory === cat
-                      ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-md shadow-cyan-500/25'
-                      : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200 shadow-xs'
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
+            <h2 className="text-3xl sm:text-5xl font-black text-[#080808] tracking-tight font-heading uppercase">
+              CAPABILITIES &amp; SOLUTIONS
+            </h2>
           </div>
+
+          <p className="text-base sm:text-lg text-[#6B7280] max-w-md">
+            We combine engineering rigor, product thinking and design precision to build reliable digital systems.
+          </p>
         </div>
 
-        {/* 11 Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {filteredServices.map((service, index) => (
+        {/* 10 Services Grid (Swiss Modernist Grid) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {SERVICES.map((service, index) => (
             <motion.div
               key={service.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: (index % 6) * 0.06 }}
-              className="group relative rounded-2xl bg-white p-7 border border-slate-200/90 hover:border-cyan-400 transition-all duration-300 flex flex-col justify-between shadow-sm hover:shadow-xl hover:shadow-cyan-900/10 hover:-translate-y-1"
+              transition={{ duration: 0.4, delay: index * 0.05 }}
+              onClick={() => handleOpenService(service)}
+              className="group relative bg-[#FFFFFF] border border-[#E5E7EB] p-8 flex flex-col justify-between hover:border-[#00C2FF] transition-all duration-300 shadow-xs cursor-pointer hover:shadow-lg"
             >
+              {/* Top Accent Line on Hover */}
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-transparent group-hover:bg-[#00C2FF] transition-all duration-300" />
+
               <div>
-                {/* Top Number & Icon */}
-                <div className="flex items-center justify-between mb-5">
-                  <span className="font-mono text-xs font-extrabold px-3 py-1 rounded-full bg-cyan-50 text-cyan-700 group-hover:bg-cyan-600 group-hover:text-white transition-colors border border-cyan-100">
-                    {service.number}
+                {/* Number & Icon */}
+                <div className="flex items-center justify-between mb-6">
+                  <span className="font-mono text-xs font-bold text-[#00C2FF] tracking-widest">
+                    {service.number} // CAPABILITY
                   </span>
-                  <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 group-hover:border-cyan-300 group-hover:bg-cyan-50/50 transition-all">
-                    {getServiceIcon(service.id)}
+                  <div className="text-[#6B7280] group-hover:text-[#00C2FF] transition-colors">
+                    {getServiceIcon(service.iconType)}
                   </div>
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 font-heading group-hover:text-cyan-700 transition-colors mb-3">
+                <h3 className="text-xl sm:text-2xl font-bold text-[#080808] tracking-tight mb-3 font-heading group-hover:text-black">
                   {service.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-sm text-slate-600 leading-relaxed mb-6 font-normal">
+                <p className="text-sm text-[#6B7280] leading-relaxed mb-6">
                   {service.description}
                 </p>
               </div>
 
-              {/* Exact Buttons from Reference: [Service Details] [View Portfolio] */}
-              <div className="pt-5 border-t border-slate-100 flex items-center justify-between gap-3">
-                <button
-                  type="button"
-                  onClick={() => setSelectedService(service)}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-cyan-700 hover:text-cyan-900 py-1.5 transition-colors group/btn"
-                >
-                  <span>Service Details</span>
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5" />
-                </button>
+              <div>
+                {/* Tech Tags */}
+                <div className="flex flex-wrap gap-1.5 mb-6 pt-4 border-t border-[#E5E7EB]">
+                  {service.technologies.slice(0, 3).map((tech, idx) => (
+                    <span 
+                      key={idx}
+                      className="font-mono text-[11px] px-2 py-0.5 bg-[#F4F5F7] text-[#080808] border border-[#E5E7EB]"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                  {service.technologies.length > 3 && (
+                    <span className="font-mono text-[11px] px-1.5 py-0.5 text-[#6B7280]">
+                      +{service.technologies.length - 3}
+                    </span>
+                  )}
+                </div>
 
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (onViewPortfolio) {
-                      onViewPortfolio();
-                    } else {
-                      const el = document.getElementById('projects');
-                      if (el) el.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }}
-                  className="text-xs font-semibold text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-colors"
-                >
-                  View Portfolio
-                </button>
+                {/* Card Action Link */}
+                <div className="flex items-center justify-between text-xs font-heading font-bold uppercase tracking-wider text-[#080808] group-hover:text-[#00C2FF] transition-colors pt-2">
+                  <span>EXPLORE SERVICE</span>
+                  <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </div>
               </div>
             </motion.div>
           ))}
         </div>
 
+        {/* Bottom Helper Bar */}
+        <div className="mt-16 pt-8 border-t border-[#E5E7EB] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div className="font-mono text-xs text-[#6B7280]">
+            NEED A BESPOKE ARCHITECTURE OR HYBRID SCOPE?
+          </div>
+
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => onSelectService ? onSelectService('Comprehensive IT & Web Solution') : null}
+              className="px-6 py-3 bg-[#080808] text-white hover:bg-[#00C2FF] hover:text-[#080808] text-xs font-heading font-bold uppercase tracking-wider transition-colors cursor-pointer"
+            >
+              REQUEST CUSTOM PROPOSAL →
+            </button>
+          </div>
+        </div>
+
       </div>
 
       {/* Service Detail Modal */}
-      <ServiceDetailModal
-        service={selectedService}
-        onClose={() => setSelectedService(null)}
-        onSelectService={(title) => {
-          setSelectedService(null);
-          if (onSelectService) onSelectService(title);
-        }}
-      />
+      <AnimatePresence>
+        {activeModalService && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setActiveModalService(null)}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm cursor-pointer"
+            />
+
+            {/* Modal Dialog */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 15 }}
+              transition={{ duration: 0.3 }}
+              className="relative w-full max-w-3xl bg-[#FFFFFF] border border-[#080808] p-6 sm:p-10 z-10 max-h-[90vh] overflow-y-auto shadow-2xl"
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setActiveModalService(null)}
+                className="absolute top-6 right-6 p-2 text-neutral-400 hover:text-[#080808] border border-[#E5E7EB] hover:border-[#080808] transition-colors cursor-pointer"
+                aria-label="Close modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {/* Service Number & Header */}
+              <div className="flex items-center gap-2 mb-3">
+                <span className="font-mono text-sm font-bold text-[#00C2FF]">
+                  {activeModalService.number} // CAPABILITY TEMPLATE
+                </span>
+              </div>
+
+              <h2 className="text-2xl sm:text-4xl font-black text-[#080808] font-heading tracking-tight mb-3 uppercase">
+                {activeModalService.title}
+              </h2>
+
+              <p className="text-base sm:text-lg text-[#6B7280] font-normal mb-8">
+                {activeModalService.tagline}
+              </p>
+
+              {/* Capabilities List: What We Build */}
+              <div className="mb-8">
+                <h3 className="font-mono text-xs tracking-widest text-[#080808] uppercase font-bold mb-4 pb-2 border-b border-[#E5E7EB]">
+                  WHAT WE BUILD &amp; DELIVER
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {activeModalService.capabilities.map((cap, idx) => (
+                    <div key={idx} className="flex items-start gap-2.5 text-sm text-[#080808]">
+                      <span className="text-[#00C2FF] font-mono font-bold">✓</span>
+                      <span>{cap}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Technologies */}
+              <div className="mb-8">
+                <h3 className="font-mono text-xs tracking-widest text-[#080808] uppercase font-bold mb-3 pb-2 border-b border-[#E5E7EB]">
+                  ENGINEERING STACK
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {activeModalService.technologies.map((tech, idx) => (
+                    <span 
+                      key={idx}
+                      className="font-mono text-xs px-3 py-1 bg-[#F4F5F7] border border-[#E5E7EB] text-[#080808] font-medium"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Service Specific FAQ if present */}
+              {activeModalService.faqs && activeModalService.faqs.length > 0 && (
+                <div className="mb-8">
+                  <h3 className="font-mono text-xs tracking-widest text-[#080808] uppercase font-bold mb-3 pb-2 border-b border-[#E5E7EB]">
+                    COMMON QUESTIONS
+                  </h3>
+                  <div className="space-y-4">
+                    {activeModalService.faqs.map((faq, idx) => (
+                      <div key={idx} className="p-4 bg-[#F4F5F7] border border-[#E5E7EB]">
+                        <p className="text-sm font-bold text-[#080808] mb-1 font-heading">
+                          Q: {faq.question}
+                        </p>
+                        <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed">
+                          {faq.answer}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Bottom CTA within modal */}
+              <div className="pt-6 border-t border-[#E5E7EB] flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="font-mono text-xs text-[#6B7280]">
+                  READY TO ARCHITECT THIS SYSTEM?
+                </div>
+
+                <div className="flex items-center gap-3 w-full sm:w-auto">
+                  <button
+                    onClick={() => handleStartProject(activeModalService)}
+                    className="w-full sm:w-auto px-8 py-3.5 bg-[#080808] text-white hover:bg-[#00C2FF] hover:text-[#080808] text-xs font-heading font-bold uppercase tracking-wider transition-colors cursor-pointer flex items-center justify-center gap-2"
+                  >
+                    <span>LET'S BUILD IT →</span>
+                  </button>
+                </div>
+              </div>
+
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

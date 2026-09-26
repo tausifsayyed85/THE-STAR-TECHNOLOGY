@@ -1,212 +1,145 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { BookOpen, ArrowRight, Clock, Calendar, X, Sparkles, RefreshCw } from 'lucide-react';
+import { ArrowUpRight, X } from 'lucide-react';
 import { BLOG_ARTICLES } from '../data/companyData';
 import { BlogArticle } from '../types';
-import { BlogCardSkeleton } from './SkeletonLoader';
 
 export const BlogSection: React.FC = () => {
-  const [selectedArticle, setSelectedArticle] = useState<BlogArticle | null>(null);
-  const [activeCategory, setActiveCategory] = useState<string>('All');
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const categories = ['All', 'Web Development', 'Architecture', 'SEO & Growth'];
-
-  const handleCategoryChange = (cat: string) => {
-    if (cat === activeCategory) return;
-    setIsLoading(true);
-    setActiveCategory(cat);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 350);
-  };
-
-  const handleSimulateReload = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 700);
-  };
-
-  const filteredArticles = activeCategory === 'All'
-    ? BLOG_ARTICLES
-    : BLOG_ARTICLES.filter((a) => a.category.toLowerCase().includes(activeCategory.toLowerCase()));
+  const [activeArticle, setActiveArticle] = useState<BlogArticle | null>(null);
 
   return (
-    <section id="blog" className="py-24 sm:py-32 relative bg-white border-t border-slate-200/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="insights" className="py-24 sm:py-32 bg-[#FFFFFF] border-b border-[#E5E7EB] relative">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 border-b border-[#E5E7EB] gap-6 mb-16">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-50 border border-cyan-200 text-cyan-800 text-xs font-bold tracking-wider uppercase mb-4 shadow-xs">
-              <BookOpen className="w-3.5 h-3.5 text-cyan-600" />
-              <span>DIGITAL INSIGHTS & ENGINEERING</span>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="font-mono text-sm font-bold text-[#00C2FF]">10</span>
+              <span className="text-neutral-400 font-mono text-sm">/</span>
+              <span className="font-mono text-sm tracking-[0.2em] font-semibold text-[#080808] uppercase">
+                INSIGHTS
+              </span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight font-heading">
-              Technology & Growth Blog
+            <h2 className="text-3xl sm:text-5xl font-black text-[#080808] tracking-tight font-heading uppercase">
+              PERSPECTIVES &amp; ANALYSIS
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-slate-600 max-w-md font-normal">
-              Actionable strategies on web engineering, local search optimization, and modern software design.
-            </p>
           </div>
 
-          {/* Category Filter Pills & Skeleton Reload Simulator */}
-          <div className="flex flex-wrap items-center gap-2">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => handleCategoryChange(cat)}
-                className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
-                  activeCategory === cat
-                    ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-md shadow-cyan-500/25'
-                    : 'bg-slate-50 text-slate-600 hover:text-slate-900 border border-slate-200 shadow-xs'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-
-            <button
-              onClick={handleSimulateReload}
-              disabled={isLoading}
-              title="Preview loading skeleton state"
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200 transition-colors ml-1"
-            >
-              <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin text-cyan-600' : ''}`} />
-              <span className="hidden sm:inline">Test Skeleton</span>
-            </button>
-          </div>
+          <p className="text-base sm:text-lg text-[#6B7280] max-w-md">
+            Architectural thinking, software economics, and technical lessons from our product engineering work.
+          </p>
         </div>
 
-        {/* Articles Grid or Skeletons */}
+        {/* 3 Articles Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {isLoading ? (
-            <>
-              <BlogCardSkeleton />
-              <BlogCardSkeleton />
-              <BlogCardSkeleton />
-            </>
-          ) : (
-            filteredArticles.map((article, idx) => (
-              <motion.article
-                key={article.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-slate-50/70 hover:bg-white rounded-3xl p-7 border border-slate-200 flex flex-col justify-between hover:border-cyan-400 hover:shadow-xl hover:shadow-cyan-900/5 transition-all group shadow-xs"
-              >
-                <div>
-                  <div className="flex items-center justify-between text-xs text-slate-500 mb-4 pb-3 border-b border-slate-200">
-                    <span className="font-mono text-cyan-700 font-bold px-2.5 py-0.5 rounded-md bg-cyan-100/70">
-                      {article.category}
-                    </span>
-                    <div className="flex items-center gap-1.5 text-slate-500">
-                      <Clock className="w-3.5 h-3.5" />
-                      <span>{article.readTime}</span>
-                    </div>
-                  </div>
-
-                  <h3 className="text-xl font-extrabold text-slate-900 font-heading group-hover:text-cyan-700 transition-colors mb-3 leading-snug">
-                    {article.title}
-                  </h3>
-
-                  <p className="text-sm text-slate-600 leading-relaxed line-clamp-3 mb-6 font-normal">
-                    {article.summary}
-                  </p>
+          {BLOG_ARTICLES.map((article, idx) => (
+            <motion.div
+              key={article.id}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: idx * 0.1 }}
+              onClick={() => setActiveArticle(article)}
+              className="p-8 bg-[#F4F5F7] border border-[#E5E7EB] hover:border-[#00C2FF] transition-all duration-300 flex flex-col justify-between cursor-pointer group shadow-xs hover:shadow-lg"
+            >
+              <div>
+                {/* Meta */}
+                <div className="flex items-center justify-between font-mono text-[11px] text-[#6B7280] mb-4">
+                  <span className="text-[#00C2FF] font-bold uppercase">{article.category}</span>
+                  <span>{article.readTime}</span>
                 </div>
 
-                <div className="pt-4 border-t border-slate-200 flex items-center justify-between">
-                  <span className="text-xs text-slate-500 flex items-center gap-1.5 font-mono">
-                    <Calendar className="w-3.5 h-3.5" />
-                    {article.date}
-                  </span>
+                {/* Title */}
+                <h3 className="text-xl font-bold text-[#080808] font-heading tracking-tight mb-3 leading-snug group-hover:text-black">
+                  {article.title}
+                </h3>
 
-                  <button
-                    type="button"
-                    onClick={() => setSelectedArticle(article)}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-cyan-700 hover:text-cyan-900 transition-colors group/btn"
-                  >
-                    <span>Read Article</span>
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-1" />
-                  </button>
-                </div>
-              </motion.article>
-            ))
-          )}
+                {/* Summary */}
+                <p className="text-sm text-[#6B7280] leading-relaxed mb-6">
+                  {article.summary}
+                </p>
+              </div>
+
+              {/* Action */}
+              <div className="pt-4 border-t border-[#E5E7EB] flex items-center justify-between text-xs font-heading font-bold uppercase tracking-wider text-[#080808] group-hover:text-[#00C2FF] transition-colors">
+                <span>READ ARTICLE</span>
+                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </div>
+            </motion.div>
+          ))}
         </div>
 
       </div>
 
-      {/* Article Modal */}
+      {/* Article Reader Modal */}
       <AnimatePresence>
-        {selectedArticle && (
+        {activeArticle && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setSelectedArticle(null)}
-              className="fixed inset-0 bg-slate-900/60 backdrop-blur-md"
+              onClick={() => setActiveArticle(null)}
+              className="fixed inset-0 bg-black/70 backdrop-blur-sm cursor-pointer"
             />
 
+            {/* Modal Dialog */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-2xl bg-white border border-slate-200 rounded-3xl shadow-2xl z-10 text-left p-6 sm:p-8 max-h-[85vh] overflow-y-auto"
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ duration: 0.3 }}
+              className="relative w-full max-w-3xl bg-[#FFFFFF] border border-[#080808] p-6 sm:p-10 z-10 max-h-[90vh] overflow-y-auto shadow-2xl"
             >
-              <div className="flex items-center justify-between pb-4 border-b border-slate-200 mb-6">
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono font-bold text-cyan-700 px-2.5 py-1 rounded-md bg-cyan-100/70">
-                    {selectedArticle.category}
-                  </span>
-                  <span className="text-xs text-slate-500">
-                    {selectedArticle.date} • {selectedArticle.readTime}
-                  </span>
-                </div>
+              {/* Close Button */}
+              <button
+                onClick={() => setActiveArticle(null)}
+                className="absolute top-6 right-6 p-2 text-neutral-400 hover:text-[#080808] border border-[#E5E7EB] hover:border-[#080808] transition-colors cursor-pointer"
+                aria-label="Close modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
 
+              {/* Eyebrow */}
+              <div className="flex items-center gap-3 font-mono text-xs font-bold text-[#00C2FF] tracking-widest uppercase mb-3">
+                <span>{activeArticle.category}</span>
+                <span>//</span>
+                <span>{activeArticle.date}</span>
+                <span>//</span>
+                <span>{activeArticle.readTime}</span>
+              </div>
+
+              <h2 className="text-2xl sm:text-4xl font-black text-[#080808] font-heading tracking-tight mb-6 leading-tight">
+                {activeArticle.title}
+              </h2>
+
+              <div className="space-y-4 text-base text-[#080808] leading-relaxed mb-8 pt-6 border-t border-[#E5E7EB]">
+                {activeArticle.fullBody ? (
+                  activeArticle.fullBody.map((paragraph, idx) => (
+                    <p key={idx} className="text-[#080808]/90">
+                      {paragraph}
+                    </p>
+                  ))
+                ) : (
+                  <p>{activeArticle.contentSnippet}</p>
+                )}
+              </div>
+
+              {/* Author & Footer */}
+              <div className="pt-6 border-t border-[#E5E7EB] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono text-xs text-[#6B7280]">
+                <div>
+                  <span className="text-[#080808] font-bold">PUBLISHED BY //</span> THE STAR TECHNOLOGY RESEARCH
+                </div>
                 <button
-                  onClick={() => setSelectedArticle(null)}
-                  className="p-1.5 rounded-lg text-slate-500 hover:text-slate-800 bg-slate-100"
+                  onClick={() => setActiveArticle(null)}
+                  className="px-6 py-2.5 bg-[#080808] text-white hover:bg-[#00C2FF] hover:text-[#080808] font-heading font-bold uppercase transition-colors cursor-pointer"
                 >
-                  <X className="w-5 h-5" />
+                  CLOSE ARTICLE
                 </button>
               </div>
 
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-heading mb-4 leading-tight">
-                {selectedArticle.title}
-              </h3>
-
-              <div className="space-y-4 text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
-                <p className="text-base text-slate-900 font-semibold">
-                  {selectedArticle.summary}
-                </p>
-                <p>
-                  {selectedArticle.contentSnippet}
-                </p>
-                <div className="p-4 rounded-2xl bg-cyan-50 border border-cyan-200 text-xs text-slate-700">
-                  <span className="font-bold text-cyan-900 block mb-1">Key Takeaway</span>
-                  Engineering precision and purposeful digital architecture consistently outperform off-the-shelf templates. Invest in systems built specifically for your audience.
-                </div>
-              </div>
-
-              <div className="pt-6 mt-6 border-t border-slate-200 flex items-center justify-between">
-                <button
-                  onClick={() => setSelectedArticle(null)}
-                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-semibold text-slate-700"
-                >
-                  Close
-                </button>
-                <a
-                  href="#contact"
-                  onClick={() => setSelectedArticle(null)}
-                  className="px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 shadow-md shadow-cyan-500/25"
-                >
-                  Discuss With Our Team
-                </a>
-              </div>
             </motion.div>
           </div>
         )}

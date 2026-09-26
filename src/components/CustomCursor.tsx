@@ -4,11 +4,11 @@ import { motion } from 'motion/react';
 export const CustomCursor: React.FC = () => {
   const [position, setPosition] = useState({ x: -100, y: -100 });
   const [cursorText, setCursorText] = useState('');
-  const [cursorVariant, setCursorVariant] = useState<'default' | 'project' | 'cta' | 'star' | 'hidden'>('default');
+  const [cursorVariant, setCursorVariant] = useState<'default' | 'project' | 'service' | 'button'>('default');
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Only enable on non-touch devices with fine pointers
+    // Only enable on desktop pointer devices
     if (window.matchMedia('(pointer: coarse)').matches) {
       return;
     }
@@ -20,26 +20,18 @@ export const CustomCursor: React.FC = () => {
       const target = e.target as HTMLElement | null;
       if (!target) return;
 
-      const starTarget = target.closest('[data-cursor="3d-star"]');
-      const projectTarget = target.closest('[data-cursor="project"]');
-      const ctaTarget = target.closest('[data-cursor="cta"]');
-      const talkTarget = target.closest('[data-cursor="talk"]');
-      const linkTarget = target.closest('a, button, [role="button"]');
+      const projectTarget = target.closest('#projects [class*="group"], [data-cursor="project"]');
+      const serviceTarget = target.closest('#services [class*="group"], [data-cursor="service"]');
+      const buttonTarget = target.closest('button, a, input, select, textarea');
 
-      if (starTarget) {
-        setCursorVariant('star');
-        setCursorText('DRAG 3D');
-      } else if (projectTarget) {
+      if (projectTarget) {
         setCursorVariant('project');
-        setCursorText('VIEW');
-      } else if (talkTarget) {
-        setCursorVariant('cta');
-        setCursorText('TALK');
-      } else if (ctaTarget) {
-        setCursorVariant('cta');
-        setCursorText('OPEN');
-      } else if (linkTarget) {
-        setCursorVariant('default');
+        setCursorText('VIEW →');
+      } else if (serviceTarget) {
+        setCursorVariant('service');
+        setCursorText('EXPLORE');
+      } else if (buttonTarget) {
+        setCursorVariant('button');
         setCursorText('');
       } else {
         setCursorVariant('default');
@@ -62,51 +54,37 @@ export const CustomCursor: React.FC = () => {
 
   if (!isVisible) return null;
 
+  const isExpanded = cursorVariant === 'project' || cursorVariant === 'service';
+  const size = isExpanded ? 64 : cursorVariant === 'button' ? 24 : 8;
+
   return (
-    <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden hidden md:block">
-      {/* Outer Circle */}
+    <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden hidden lg:block">
+      {/* Outer Circle / Follower */}
       <motion.div
-        className="fixed top-0 left-0 rounded-full flex items-center justify-center font-heading text-[10px] font-bold tracking-wider text-white select-none pointer-events-none shadow-lg"
+        className="fixed top-0 left-0 rounded-full flex items-center justify-center font-mono text-[9px] font-bold tracking-widest text-[#080808] select-none pointer-events-none"
         animate={{
-          x: position.x - (cursorVariant === 'star' ? 44 : cursorVariant === 'project' || cursorVariant === 'cta' ? 36 : 14),
-          y: position.y - (cursorVariant === 'star' ? 44 : cursorVariant === 'project' || cursorVariant === 'cta' ? 36 : 14),
-          width: cursorVariant === 'star' ? 88 : cursorVariant === 'project' || cursorVariant === 'cta' ? 72 : 28,
-          height: cursorVariant === 'star' ? 88 : cursorVariant === 'project' || cursorVariant === 'cta' ? 72 : 28,
-          backgroundColor: cursorVariant === 'star' ? 'rgba(14, 165, 233, 0.88)' : cursorVariant === 'project' || cursorVariant === 'cta' ? '#0284c7' : 'rgba(2, 132, 199, 0.12)',
-          borderColor: cursorVariant === 'star' ? '#38bdf8' : cursorVariant === 'project' || cursorVariant === 'cta' ? '#0284c7' : 'rgba(2, 132, 199, 0.4)',
-          borderWidth: cursorVariant === 'star' ? 2 : cursorVariant === 'project' || cursorVariant === 'cta' ? 0 : 1.5,
+          x: position.x - size / 2,
+          y: position.y - size / 2,
+          width: size,
+          height: size,
+          backgroundColor: isExpanded ? '#00C2FF' : cursorVariant === 'button' ? 'rgba(0, 194, 255, 0.2)' : '#00C2FF',
+          borderWidth: cursorVariant === 'button' ? 1.5 : 0,
+          borderColor: '#00C2FF',
           scale: 1,
         }}
         transition={{
           type: 'spring',
-          damping: 26,
-          stiffness: 340,
-          mass: 0.5,
+          damping: 24,
+          stiffness: 350,
+          mass: 0.4,
         }}
       >
         {cursorText && (
-          <span className="text-white font-extrabold tracking-widest text-[11px] animate-fade-in text-center px-1">
+          <span className="text-[#080808] font-bold tracking-wider uppercase px-1 text-center">
             {cursorText}
           </span>
         )}
       </motion.div>
-
-      {/* Inner Dot */}
-      {cursorVariant === 'default' && (
-        <motion.div
-          className="fixed top-0 left-0 w-1.5 h-1.5 rounded-full bg-cyan-600 pointer-events-none"
-          animate={{
-            x: position.x - 3,
-            y: position.y - 3,
-          }}
-          transition={{
-            type: 'spring',
-            damping: 40,
-            stiffness: 700,
-            mass: 0.1,
-          }}
-        />
-      )}
     </div>
   );
 };

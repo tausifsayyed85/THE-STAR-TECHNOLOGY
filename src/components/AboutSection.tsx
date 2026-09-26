@@ -101,7 +101,7 @@ export const AboutSection: React.FC = () => {
                 {/* 2. Projects Delivered */}
                 <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
                   <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-heading">
-                    20+
+                    25+
                   </div>
                   <div className="text-[11px] text-slate-500 font-semibold mt-1 leading-tight">
                     Projects Delivered
@@ -121,7 +121,7 @@ export const AboutSection: React.FC = () => {
                 {/* 4. Happy Clients */}
                 <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
                   <div className="text-2xl sm:text-3xl font-extrabold text-blue-600 font-heading">
-                    18+
+                    20+
                   </div>
                   <div className="text-[11px] text-slate-500 font-semibold mt-1 leading-tight">
                     Happy Clients
@@ -149,6 +149,7 @@ export const AboutSection: React.FC = () => {
               <div className="flex flex-wrap gap-2">
                 {[
                   "Vehicle & Smart QR Systems",
+                  "Commercial & Industrial Enterprises",
                   "Hospitals & Healthcare Clinics",
                   "Automotive MOT Centers",
                   "Dining & Restaurants",

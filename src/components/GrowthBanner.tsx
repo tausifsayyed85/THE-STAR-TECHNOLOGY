@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Phone, Sparkles } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { COMPANY_INFO } from '../data/companyData';
 
 interface GrowthBannerProps {
@@ -8,77 +8,72 @@ interface GrowthBannerProps {
 }
 
 export const GrowthBanner: React.FC<GrowthBannerProps> = ({ onStartProject }) => {
+  const handleClick = () => {
+    if (onStartProject) {
+      onStartProject();
+    } else {
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
-    <section className="py-24 sm:py-32 relative bg-gradient-to-r from-sky-50/80 via-cyan-50/60 to-blue-50/80 overflow-hidden border-y border-slate-200/90">
-      {/* Background Radial Flare */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-cyan-400/15 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none" />
+    <section className="py-24 sm:py-32 bg-[#080808] text-white relative overflow-hidden border-b border-neutral-800">
+      {/* Background Subtle Grid */}
+      <div className="absolute inset-0 bg-tech-grid-dark opacity-40 pointer-events-none" />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        
-        {/* Exact Upparac Badge: Available for new projects */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold tracking-wider uppercase mb-8 shadow-xs"
-        >
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-          <span>Available for new projects</span>
-        </motion.div>
+      {/* Luminous Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#00C2FF]/10 rounded-full blur-[160px] pointer-events-none" />
 
-        {/* Headline from Reference: Let's Build Something Great */}
-        <motion.h2
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-slate-900 font-heading tracking-tight leading-[1.1] mb-6"
-        >
-          Let's Build <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-700">
-            Something Great
-          </span>
-        </motion.h2>
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <div className="lg:col-span-8 space-y-6">
+            <div className="flex items-center gap-3 font-mono text-xs font-bold text-[#00C2FF] tracking-widest uppercase">
+              <span className="w-2 h-2 bg-[#00C2FF] animate-pulse" />
+              <span>STATUS // OPEN FOR NEW CLIENT ENGAGEMENTS</span>
+            </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-base sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed mb-10 font-normal"
-        >
-          Partner with THE STAR TECHNOLOGY for scalable, client-focused IT & web engineering designed to deliver measurable results.
-        </motion.p>
+            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-black font-heading tracking-tight uppercase leading-[0.98]">
+              READY TO BUILD <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-[#00C2FF]">
+                WHAT'S NEXT?
+              </span>
+            </h2>
 
-        {/* Action Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <a
-            href="#contact"
-            onClick={onStartProject}
-            data-cursor="cta"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-9 py-4 rounded-xl font-bold text-sm sm:text-base text-white bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 hover:from-cyan-500 hover:to-blue-500 shadow-xl shadow-cyan-600/25 transition-all duration-300 hover:scale-[1.02]"
-          >
-            <span>Start a Project</span>
-            <ArrowRight className="w-4 h-4" />
-          </a>
+            <p className="text-base sm:text-xl text-neutral-400 max-w-2xl font-normal leading-relaxed">
+              Tell us about your product idea, operational bottleneck, or upcoming release. We will analyze your requirements and respond with clear architectural steps.
+            </p>
+          </div>
 
-          <a
-            href={`tel:${COMPANY_INFO.phone}`}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl font-bold text-sm sm:text-base text-slate-800 bg-white hover:bg-slate-50 border border-slate-200 shadow-xs hover:border-cyan-400 transition-all duration-300"
-          >
-            <Phone className="w-4 h-4 text-cyan-600" />
-            <span>Call {COMPANY_INFO.formattedPhone}</span>
-          </a>
-        </motion.div>
+          <div className="lg:col-span-4 flex flex-col gap-4">
+            <button
+              onClick={handleClick}
+              className="group inline-flex items-center justify-between px-8 py-5 bg-[#00C2FF] text-[#080808] hover:bg-white transition-all duration-300 font-heading text-sm font-bold tracking-wider uppercase cursor-pointer"
+            >
+              <span>START A PROJECT</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </button>
 
+            <a
+              href={COMPANY_INFO.whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-between px-8 py-4 bg-transparent border border-neutral-700 text-white hover:border-[#00C2FF] hover:text-[#00C2FF] transition-all duration-300 font-heading text-xs font-bold tracking-wider uppercase"
+            >
+              <span>CHAT ON WHATSAPP DIRECTLY</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
+
+            <div className="font-mono text-[11px] text-neutral-500 pt-2 flex items-center justify-between">
+              <span>AVG. RESPONSE: UNDER 2 HOURS</span>
+              <span className="text-[#00C2FF]">BHUSAWAL, MH</span>
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
   );

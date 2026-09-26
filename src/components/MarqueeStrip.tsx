@@ -3,6 +3,7 @@ import React from 'react';
 export const MarqueeStrip: React.FC = () => {
   const items = [
     "WEB DEVELOPMENT",
+    "ENTERPRISE B2B PORTALS",
     "DIGITAL DESIGN",
     "BUSINESS WEBSITES",
     "UI/UX ARCHITECTURE",

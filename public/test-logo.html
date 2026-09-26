@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Logo Test</title>
+  <style>
+    body { background: #111; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; gap: 20px; }
+    .box { background: white; padding: 20px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h1>TST Logo Comparison</h1>
+  <div class="box">
+    <svg id="tst-logo" viewBox="0 0 500 500" width="300" height="300" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="hex-clip">
+          <polygon points="250,20 450,135 450,365 250,480 50,365 50,135" />
+        </clipPath>
+      </defs>
+      <!-- Background white for test -->
+      <rect width="500" height="500" fill="#ffffff" />
+      <g fill="#000000">
+        <!-- Center S -->
+        <!-- Top apex: 250, 20. Width of S outer walls: 180 to 320 (width 140) -->
+        <!-- Stroke width = 36 -->
+        <!-- Upper loop of S -->
+        <path d="
+          M 250,20 
+          L 334,68 
+          L 334,175 
+          L 296,175 
+          L 296,90 
+          L 250,64 
+          L 204,90 
+          L 204,236 
+          L 334,236 
+          L 334,432 
+          L 250,480 
+          L 166,432 
+          L 166,325 
+          L 204,325 
+          L 204,410 
+          L 250,436 
+          L 296,410 
+          L 296,264 
+          L 166,264 
+          L 166,68 
+          Z
+        " />
+        
+        <!-- Left T -->
+        <!-- S outer wall is x=166. Gap = 20 -> T inner wall is x=146. -->
+        <!-- T stem: from x=146 to x=96 (width 50). -->
+        <!-- T top bar: slants down-left from (146, 79) to (26, 148). -->
+        <!-- Wing overhang: from (26, 148) to (26, 218), notch to (96, 178). -->
+        <path d="
+          M 146,79
+          L 26,148
+          L 26,242
+          L 76,213
+          L 76,379
+          L 146,379
+          L 146,79
+          Z
+        " />
+
+        <!-- Right T: Mirror of Left T -->
+        <path d="
+          M 354,79
+          L 474,148
+          L 474,242
+          L 424,213
+          L 424,379
+          L 354,379
+          L 354,79
+          Z
+        " />
+      </g>
+    </svg>
+  </div>
+</body>
+</html>

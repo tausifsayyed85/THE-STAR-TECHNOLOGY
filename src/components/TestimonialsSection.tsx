@@ -27,8 +27,8 @@ export const TestimonialsSection: React.FC = () => {
           </p>
         </div>
 
-        {/* 3 Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Verified Testimonials Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {TESTIMONIALS.map((t, index) => (
             <motion.div
               key={t.id}

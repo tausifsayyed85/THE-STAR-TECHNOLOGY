@@ -1,65 +1,78 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Sparkles } from 'lucide-react';
 
 export const StatementSection: React.FC = () => {
-  const statements = [
-    { prefix: "WE BUILD", highlight: "BRAND EXPERIENCES." },
-    { prefix: "WE BUILD", highlight: "CUSTOMER TRUST." },
-    { prefix: "WE BUILD", highlight: "DIGITAL PRESENCE." },
-    { prefix: "WE BUILD", highlight: "BUSINESS GROWTH." },
-  ];
-
   return (
-    <section className="py-24 sm:py-32 relative bg-[#f1f5f9] border-y border-slate-200/90 overflow-hidden">
-      {/* Dynamic Background Glow */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-60 pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-cyan-400/15 blur-[120px] pointer-events-none rounded-full" />
+    <section className="py-24 sm:py-32 bg-[#FFFFFF] border-b border-[#E5E7EB] relative overflow-hidden">
+      {/* Background Subtle Tech Grid */}
+      <div className="absolute inset-0 bg-tech-grid opacity-40 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
         
-        {/* Eyebrow / Premise */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-100/70 border border-cyan-300 text-cyan-900 text-xs sm:text-sm font-bold tracking-wider uppercase mb-8 shadow-xs"
-        >
-          <Sparkles className="w-3.5 h-3.5 text-cyan-600" />
-          <span>OUR PROMISE & PURPOSE</span>
-        </motion.div>
+        {/* Section Number & Label */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-8 border-b border-[#E5E7EB] gap-4 mb-16">
+          <div className="flex items-center gap-3">
+            <span className="font-mono text-sm font-bold text-[#00C2FF]">01</span>
+            <span className="text-neutral-400 font-mono text-sm">/</span>
+            <span className="font-mono text-sm tracking-[0.2em] font-semibold text-[#080808] uppercase">
+              WHAT WE DO
+            </span>
+          </div>
 
-        {/* Lead Headline */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-slate-500 font-heading tracking-tight mb-12 sm:mb-14"
-        >
-          WE DON'T JUST BUILD WEBSITES.
-        </motion.h2>
+          {/* Technical Metadata */}
+          <div className="flex flex-wrap items-center gap-6 font-mono text-[11px] text-[#6B7280]">
+            <div>
+              <span className="text-[#080808] font-bold">STATUS //</span> READY FOR ENGAGEMENT
+            </div>
+            <div>
+              <span className="text-[#080808] font-bold">SYSTEM //</span> DIGITAL PRODUCT STUDIO
+            </div>
+            <div className="hidden sm:block">
+              <span className="text-[#00C2FF] font-bold">HQ //</span> BHUSAWAL, MAHARASHTRA
+            </div>
+          </div>
+        </div>
 
-        {/* Animated Rhythmic Statements */}
-        <div className="space-y-4 sm:space-y-5 max-w-4xl mx-auto">
-          {statements.map((stmt, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, scale: 0.96, y: 20 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="group p-4 sm:p-6 rounded-2xl bg-white hover:bg-white border border-slate-200/90 hover:border-cyan-400 transition-all duration-300 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 shadow-sm hover:shadow-lg hover:shadow-cyan-900/10 hover:-translate-y-0.5"
+        {/* Large Statement and Supporting Text */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          <div className="lg:col-span-8">
+            <motion.h2 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="text-3xl sm:text-5xl lg:text-6xl font-black text-[#080808] tracking-tight leading-[1.08] font-heading uppercase text-balance"
             >
-              <span className="text-xl sm:text-3xl lg:text-4xl font-extrabold font-heading text-slate-400 tracking-tight group-hover:text-slate-600 transition-colors">
-                {stmt.prefix}
-              </span>
-              <span className="text-2xl sm:text-4xl lg:text-5xl font-extrabold font-heading text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-700 tracking-tight transition-all">
-                {stmt.highlight}
-              </span>
-            </motion.div>
-          ))}
+              "Technology should solve problems, <br />
+              <span className="text-[#6B7280]">not create more of them."</span>
+            </motion.h2>
+          </div>
+
+          <div className="lg:col-span-4 space-y-6 lg:pt-3">
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="text-base sm:text-lg text-[#6B7280] leading-relaxed"
+            >
+              <strong className="text-[#080808] font-semibold">THE STAR TECHNOLOGY</strong> helps businesses turn ideas, workflows and operational challenges into practical digital products, robust software architectures, and scalable technology systems.
+            </motion.p>
+
+            {/* Subtle Animated Line */}
+            <motion.div 
+              initial={{ width: 0 }}
+              whileInView={{ width: '100%' }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, delay: 0.4 }}
+              className="h-[2px] bg-gradient-to-r from-[#00C2FF] to-transparent"
+            />
+
+            <div className="font-mono text-xs text-[#6B7280] flex items-center justify-between">
+              <span>PRECISION ENGINEERING</span>
+              <span className="text-[#00C2FF]">EST. 2026</span>
+            </div>
+          </div>
         </div>
 
       </div>

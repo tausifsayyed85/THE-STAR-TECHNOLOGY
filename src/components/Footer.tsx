@@ -1,182 +1,201 @@
 import React from 'react';
-import { Phone, Mail, MapPin, Instagram, ArrowUp, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, MapPin, Mail, Phone, Instagram, MessageCircle } from 'lucide-react';
+import { COMPANY_INFO, SERVICES } from '../data/companyData';
 import { Logo } from './Logo';
-import { COMPANY_INFO } from '../data/companyData';
 
 interface FooterProps {
-  onOpenLegal: (type: 'privacy' | 'terms') => void;
+  onOpenLegal?: (type: 'privacy' | 'terms') => void;
+  onNavigate?: (route: string) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenLegal }) => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+export const Footer: React.FC<FooterProps> = ({ onOpenLegal, onNavigate }) => {
+  const handleNav = (route: string, elementId?: string) => {
+    if (onNavigate) {
+      onNavigate(route);
+    }
+    if (elementId) {
+      const el = document.getElementById(elementId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
   };
 
-  const footerServices = [
-    { name: 'Social Media Management', href: '#services' },
-    { name: 'Logo Design', href: '#services' },
-    { name: 'Dynamic Website Development', href: '#services' },
-    { name: 'Static Website Development', href: '#services' },
-    { name: 'SEO-Search Engine Optimization', href: '#services' },
-    { name: 'Digital Marketing', href: '#services' },
-  ];
-
   return (
-    <footer className="relative bg-white border-t border-slate-200 text-slate-600 pt-20 pb-12 overflow-hidden">
-      {/* Decorative top gradient rule */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[2px] bg-gradient-to-r from-transparent via-cyan-500/60 to-transparent" />
+    <footer className="bg-[#080808] text-white border-t border-neutral-800 pt-20 pb-12 relative overflow-hidden">
+      {/* Background Subtle Tech Grid */}
+      <div className="absolute inset-0 bg-tech-grid-dark opacity-30 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
         
-        {/* Main 4-Column Grid Matching Reference */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pb-16 border-b border-slate-200">
+        {/* Top Section: Logo, Statement & Newsletter/Status */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-neutral-800">
           
-          {/* Col 1: Brand & Tagline (5 cols) */}
           <div className="lg:col-span-5 space-y-6">
-            <a href="#hero" className="inline-block">
-              <Logo size={42} variant="light" />
-            </a>
-            <p className="text-slate-600 text-sm sm:text-base max-w-sm leading-relaxed font-normal">
-              Leading web development and IT solutions experts delivering scalable, client-focused digital solutions for businesses that want to stand out.
-            </p>
-            <div className="text-xs text-slate-500 space-y-1 font-mono">
-              <div>FOUNDER & TECH LEAD: <span className="font-bold text-slate-800">{COMPANY_INFO.founder.name}</span></div>
-              <div>LOCATION: {COMPANY_INFO.address.city}, {COMPANY_INFO.address.state}</div>
-            </div>
-
-            {/* Instagram Link Badge with corrected @the_star_techno */}
-            <div className="pt-2">
-              <a
-                href={COMPANY_INFO.instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 px-4 py-2 rounded-xl bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-200 text-xs font-bold transition-all group shadow-xs"
-              >
-                <Instagram className="w-4 h-4 text-pink-600" />
-                <span>Follow {COMPANY_INFO.instagram}</span>
-                <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
-            </div>
-          </div>
-
-          {/* Col 2: Company Navigation (2 cols) */}
-          <div className="lg:col-span-2 space-y-4">
-            <span className="text-xs font-mono font-bold tracking-widest text-cyan-700 uppercase block">
-              COMPANY
-            </span>
-            <ul className="space-y-2.5 text-sm">
-              {[
-                { name: 'Home', href: '#hero' },
-                { name: 'About', href: '#about' },
-                { name: 'Services', href: '#services' },
-                { name: 'Portfolio', href: '#projects' },
-                { name: 'Blog', href: '#blog' },
-                { name: 'Contact', href: '#contact' },
-              ].map((item) => (
-                <li key={item.name}>
-                  <a
-                    href={item.href}
-                    className="text-slate-600 hover:text-cyan-700 font-medium transition-colors flex items-center gap-1.5"
-                  >
-                    <span>{item.name}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Col 3: Services from Reference (2 cols) */}
-          <div className="lg:col-span-2 space-y-4">
-            <span className="text-xs font-mono font-bold tracking-widest text-cyan-700 uppercase block">
-              SERVICES
-            </span>
-            <ul className="space-y-2.5 text-xs sm:text-sm">
-              {footerServices.map((s) => (
-                <li key={s.name}>
-                  <a
-                    href={s.href}
-                    className="text-slate-600 hover:text-cyan-700 font-medium transition-colors"
-                  >
-                    {s.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Col 4: Contact (3 cols) */}
-          <div className="lg:col-span-3 space-y-4">
-            <span className="text-xs font-mono font-bold tracking-widest text-cyan-700 uppercase block">
-              CONTACT
-            </span>
+            <Logo size={42} onDark={true} />
             
-            <div className="space-y-3 text-sm">
-              <div className="flex items-start gap-3 text-slate-700">
-                <MapPin className="w-4 h-4 text-cyan-600 shrink-0 mt-1" />
-                <span className="leading-snug">
-                  {COMPANY_INFO.address.full}
-                </span>
-              </div>
+            <p className="text-sm sm:text-base text-neutral-400 max-w-md leading-relaxed">
+              A modern technology, software, digital solutions and innovation studio helping businesses build, launch and grow dependable digital products.
+            </p>
 
-              <div className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-cyan-600 shrink-0" />
-                <a
-                  href={`tel:${COMPANY_INFO.phone}`}
-                  className="text-slate-800 hover:text-cyan-700 font-bold transition-colors"
-                >
-                  {COMPANY_INFO.formattedPhone}
-                </a>
-              </div>
+            <div className="flex items-center gap-3 font-mono text-xs text-neutral-400">
+              <span className="w-2 h-2 rounded-full bg-[#00C2FF] animate-ping" />
+              <span>HEADQUARTERS // BHUSAWAL, MAHARASHTRA, INDIA</span>
+            </div>
+          </div>
 
-              <div className="flex items-center gap-3">
-                <Mail className="w-4 h-4 text-cyan-600 shrink-0" />
-                <a
-                  href={`mailto:${COMPANY_INFO.email}`}
-                  className="text-slate-800 hover:text-cyan-700 text-xs sm:text-sm font-semibold transition-colors break-all"
-                >
-                  {COMPANY_INFO.email}
-                </a>
-              </div>
+          <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
+            
+            {/* Column 1: Navigation */}
+            <div>
+              <h4 className="font-mono text-xs font-bold text-white uppercase tracking-widest mb-4">
+                NAVIGATION
+              </h4>
+              <ul className="space-y-2.5 text-sm text-neutral-400">
+                <li>
+                  <button onClick={() => handleNav('home', 'hero')} className="hover:text-[#00C2FF] transition-colors cursor-pointer text-left">
+                    Home
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleNav('about', 'about')} className="hover:text-[#00C2FF] transition-colors cursor-pointer text-left">
+                    About TST
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleNav('services', 'services')} className="hover:text-[#00C2FF] transition-colors cursor-pointer text-left">
+                    Capabilities
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleNav('projects', 'projects')} className="hover:text-[#00C2FF] transition-colors cursor-pointer text-left">
+                    Selected Work
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleNav('pricing')} className="hover:text-[#00C2FF] transition-colors cursor-pointer text-left">
+                    Pricing &amp; Scope
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleNav('insights', 'insights')} className="hover:text-[#00C2FF] transition-colors cursor-pointer text-left">
+                    Insights
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleNav('faq')} className="hover:text-[#00C2FF] transition-colors cursor-pointer text-left">
+                    FAQ
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleNav('careers')} className="hover:text-[#00C2FF] transition-colors cursor-pointer text-left">
+                    Careers
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => handleNav('contact', 'contact')} className="hover:text-[#00C2FF] transition-colors cursor-pointer text-left">
+                    Contact Us
+                  </button>
+                </li>
+              </ul>
             </div>
 
-            <div className="pt-3">
-              <a
-                href="#contact"
-                className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 transition-all shadow-md shadow-cyan-600/20"
-              >
-                Start a Project
-              </a>
+            {/* Column 2: Capabilities (Top 6) */}
+            <div>
+              <h4 className="font-mono text-xs font-bold text-white uppercase tracking-widest mb-4">
+                CAPABILITIES
+              </h4>
+              <ul className="space-y-2.5 text-sm text-neutral-400">
+                {SERVICES.slice(0, 6).map((s) => (
+                  <li key={s.id}>
+                    <button
+                      onClick={() => handleNav('services', 'services')}
+                      className="hover:text-[#00C2FF] transition-colors cursor-pointer text-left truncate max-w-full"
+                    >
+                      {s.title}
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </div>
+
+            {/* Column 3: Contact & Direct */}
+            <div>
+              <h4 className="font-mono text-xs font-bold text-white uppercase tracking-widest mb-4">
+                DIRECT CONTACT
+              </h4>
+              <ul className="space-y-3 text-sm text-neutral-400">
+                <li>
+                  <a 
+                    href={`tel:+91${COMPANY_INFO.phone}`} 
+                    className="hover:text-[#00C2FF] transition-colors block"
+                  >
+                    {COMPANY_INFO.formattedPhone}
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href={`mailto:${COMPANY_INFO.email}`} 
+                    className="hover:text-[#00C2FF] transition-colors block break-words"
+                  >
+                    {COMPANY_INFO.email}
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href={COMPANY_INFO.whatsappLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 transition-colors"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    <span>WhatsApp Chat</span>
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href={COMPANY_INFO.instagramUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="inline-flex items-center gap-1.5 hover:text-[#00C2FF] transition-colors"
+                  >
+                    <Instagram className="w-3.5 h-3.5" />
+                    <span>{COMPANY_INFO.instagram}</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
           </div>
 
         </div>
 
-        {/* Bottom Strip: Copyright & Legal */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        {/* Bottom Bar: Copyright, Legal, Back to Top */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-neutral-500">
           <div>
-            © 2026 {COMPANY_INFO.name}. All Rights Reserved.
+            © 2026 THE STAR TECHNOLOGY. All rights reserved.
           </div>
 
           <div className="flex items-center gap-6">
             <button
-              onClick={() => onOpenLegal('privacy')}
-              className="hover:text-slate-800 transition-colors"
+              onClick={() => onOpenLegal ? onOpenLegal('privacy') : null}
+              className="hover:text-white transition-colors cursor-pointer"
             >
               Privacy Policy
             </button>
+            <span>/</span>
             <button
-              onClick={() => onOpenLegal('terms')}
-              className="hover:text-slate-800 transition-colors"
+              onClick={() => onOpenLegal ? onOpenLegal('terms') : null}
+              className="hover:text-white transition-colors cursor-pointer"
             >
-              Terms & Conditions
+              Terms of Service
             </button>
+            <span>/</span>
             <button
-              onClick={scrollToTop}
-              className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-colors flex items-center gap-1 ml-2 font-semibold"
-              aria-label="Scroll back to top"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="hover:text-[#00C2FF] transition-colors cursor-pointer"
             >
-              <span>Top</span>
-              <ArrowUp className="w-3.5 h-3.5 text-cyan-600" />
+              Back to Top ↑
             </button>
           </div>
         </div>
