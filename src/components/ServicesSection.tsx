@@ -104,21 +104,23 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
 
               <div>
                 {/* Tech Tags */}
-                <div className="flex flex-wrap gap-1.5 mb-6 pt-4 border-t border-[#E5E7EB]">
-                  {service.technologies.slice(0, 3).map((tech, idx) => (
-                    <span 
-                      key={idx}
-                      className="font-mono text-[11px] px-2 py-0.5 bg-[#F4F5F7] text-[#080808] border border-[#E5E7EB]"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {service.technologies.length > 3 && (
-                    <span className="font-mono text-[11px] px-1.5 py-0.5 text-[#6B7280]">
-                      +{service.technologies.length - 3}
-                    </span>
-                  )}
-                </div>
+                {((service.technologies && service.technologies.length > 0) || (service.deliverables && service.deliverables.length > 0)) && (
+                  <div className="flex flex-wrap gap-1.5 mb-6 pt-4 border-t border-[#E5E7EB]">
+                    {(service.technologies || service.deliverables || []).slice(0, 3).map((tech, idx) => (
+                      <span 
+                        key={idx}
+                        className="font-mono text-[11px] px-2 py-0.5 bg-[#F4F5F7] text-[#080808] border border-[#E5E7EB]"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                    {(service.technologies || service.deliverables || []).length > 3 && (
+                      <span className="font-mono text-[11px] px-1.5 py-0.5 text-[#6B7280]">
+                        +{(service.technologies || service.deliverables || []).length - 3}
+                      </span>
+                    )}
+                  </div>
+                )}
 
                 {/* Card Action Link */}
                 <div className="flex items-center justify-between text-xs font-heading font-bold uppercase tracking-wider text-[#080808] group-hover:text-[#00C2FF] transition-colors pt-2">

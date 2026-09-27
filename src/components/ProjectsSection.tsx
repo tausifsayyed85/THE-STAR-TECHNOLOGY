@@ -15,7 +15,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onStartProject
   const [activeFilter, setActiveFilter] = useState<string>('All');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const categories = ['All', 'Enterprise', 'Smart Systems', 'Healthcare', 'Automotive', 'Dining', 'Fitness', 'Real Estate'];
+  const categories = ['All', 'Commercial & B2B', 'Smart Systems', 'Healthcare', 'Automotive', 'Dining', 'Fitness', 'Real Estate'];
 
   const handleFilterChange = (cat: string) => {
     if (cat === activeFilter) return;
@@ -36,7 +36,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onStartProject
   const filteredProjects = activeFilter === 'All'
     ? PROJECTS
     : PROJECTS.filter((p) => {
-        if (activeFilter === 'Enterprise') return p.id.includes('as-enterprises') || p.category.includes('Enterprise') || p.category.includes('Commercial') || p.category.includes('Industrial');
+        if (activeFilter === 'Commercial & B2B') return p.id.includes('as-enterprises') || p.category.includes('Commercial') || p.category.includes('Enterprise');
         if (activeFilter === 'Smart Systems') return p.id.includes('scanigo') || p.category.includes('Smart');
         if (activeFilter === 'Healthcare') return p.id.includes('hospital') || p.category.includes('Dental') || p.category.includes('Clinic');
         if (activeFilter === 'Automotive') return p.id.includes('alperton') || p.category.includes('Automotive');

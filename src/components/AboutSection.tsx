@@ -101,7 +101,7 @@ export const AboutSection: React.FC = () => {
                 {/* 2. Projects Delivered */}
                 <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
                   <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-heading">
-                    25+
+                    20+
                   </div>
                   <div className="text-[11px] text-slate-500 font-semibold mt-1 leading-tight">
                     Projects Delivered
@@ -121,7 +121,7 @@ export const AboutSection: React.FC = () => {
                 {/* 4. Happy Clients */}
                 <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
                   <div className="text-2xl sm:text-3xl font-extrabold text-blue-600 font-heading">
-                    20+
+                    18+
                   </div>
                   <div className="text-[11px] text-slate-500 font-semibold mt-1 leading-tight">
                     Happy Clients
@@ -148,8 +148,8 @@ export const AboutSection: React.FC = () => {
               </span>
               <div className="flex flex-wrap gap-2">
                 {[
-                  "Vehicle & Smart QR Systems",
                   "Commercial & Industrial Enterprises",
+                  "Vehicle & Smart QR Systems",
                   "Hospitals & Healthcare Clinics",
                   "Automotive MOT Centers",
                   "Dining & Restaurants",
@@ -221,11 +221,8 @@ export const AboutSection: React.FC = () => {
                   onLoad={() => setIsPhotoLoaded(true)}
                   onError={(e) => {
                     setIsPhotoLoaded(true);
-                    // graceful fallback chain
                     const target = e.currentTarget;
-                    if (target.src !== '/Founder.png' && !target.src.endsWith('/Founder.png')) {
-                      target.src = '/Founder.png';
-                    } else if (target.src !== '/founder.png' && !target.src.endsWith('/founder.png')) {
+                    if (!target.src.includes('founder') && !target.src.includes('Founder')) {
                       target.src = '/founder.png';
                     }
                   }}

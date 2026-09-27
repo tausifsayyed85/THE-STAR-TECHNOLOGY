@@ -1,14 +1,14 @@
 export interface Project {
   id: string;
   projectTitle: string;
-  slug: string;
+  slug?: string;
   clientName?: string;
   category: string;
-  industry: string;
-  year: string;
+  industry?: string;
+  year?: string;
   badge: string;
   description: string;
-  summary: string;
+  summary?: string;
   thumbnail: string;
   heroImage?: string;
   gallery: string[];
@@ -18,7 +18,7 @@ export interface Project {
   approach: string;
   solution: string;
   outcome: string;
-  services: string[];
+  services?: string[];
   url?: string;
 }
 
@@ -34,12 +34,12 @@ export interface Service {
   tagline: string;
   description: string;
   features: string[];
-  capabilities: string[];
-  technologies: string[];
+  capabilities?: string[];
+  technologies?: string[];
   deliverables?: string[];
   idealFor?: string;
   iconType?: string;
-  faqs: ServiceFAQ[];
+  faqs?: ServiceFAQ[];
 }
 
 export interface Testimonial {
@@ -55,7 +55,7 @@ export interface Testimonial {
 
 export interface BlogArticle {
   id: string;
-  slug: string;
+  slug?: string;
   title: string;
   category: string;
   date: string;
@@ -86,9 +86,15 @@ export interface WhyUsItem {
   highlight: string;
 }
 
+export interface IndustryItem {
+  id: string;
+  name: string;
+  desc: string;
+}
+
 export interface TechnologyItem {
   name: string;
-  category: 'Frontend' | 'Backend' | 'Mobile' | 'AI & Automation' | 'Design & DevOps';
+  category: 'Frontend' | 'Backend' | 'Backend & Tools' | 'Architecture' | 'Mobile' | 'AI & Automation' | 'Design & DevOps';
   description: string;
   level: string;
 }

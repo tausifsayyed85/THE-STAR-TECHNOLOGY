@@ -7,7 +7,7 @@ import projectMotImg from '../assets/images/mot_centre_1789386660115.jpg';
 import projectRestaurantImg from '../assets/images/project_restaurant_1789384284259.jpg';
 import projectFitnessImg from '../assets/images/project_fitness_1789384304006.jpg';
 import projectRealEstateImg from '../assets/images/project_realestate_1789384321180.jpg';
-import projectAsEnterprisesImg from '../assets/images/as_enterprises_preview_1790442514974.jpg';
+import projectASEnterprisesImg from '../assets/images/as_enterprises_mockup_1790500160560.jpg';
 
 export const COMPANY_INFO = {
   name: "THE STAR TECHNOLOGY",
@@ -19,7 +19,7 @@ export const COMPANY_INFO = {
     name: "TAUSIF SAYYED",
     role: "Founder & Technology Lead",
     bio: "Focused on building practical digital solutions, robust web architecture, and modern technology systems that help businesses thrive in a digital-first world.",
-    image: "/Founder.png",
+    image: "/founder.png",
   },
   phone: "9595689877",
   formattedPhone: "+91 95956 89877",
@@ -41,9 +41,9 @@ export const COMPANY_INFO = {
   heroImage: heroBrightStar,
   stats: [
     { label: "Average Client Rating", value: "4.0 / 5", highlight: "Verified Quality" },
-    { label: "Projects Delivered", value: "25+", highlight: "Proven Track Record" },
+    { label: "Projects Delivered", value: "21+", highlight: "Proven Track Record" },
     { label: "Client Satisfaction", value: "98%", highlight: "High Trust" },
-    { label: "Happy Clients", value: "20+", highlight: "Growing Network" },
+    { label: "Happy Clients", value: "19+", highlight: "Growing Network" },
     { label: "Years Experience", value: "1+", highlight: "Modern Edge" },
   ],
   heroTags: [
@@ -240,30 +240,6 @@ export const SERVICES: Service[] = [
 // Portfolio Projects with accurate, high-quality images
 export const PROJECTS: Project[] = [
   {
-    id: "as-enterprises",
-    projectTitle: "M/s A. S. Enterprises",
-    clientName: "M/s A. S. Enterprises",
-    category: "Commercial & Industrial Enterprise",
-    badge: "Enterprise & Trade (2025)",
-    description: "Modern digital business portal and dynamic B2B product showcase engineered for M/s A. S. Enterprises to expand commercial trading, streamline wholesale inquiries, and accelerate client acquisition.",
-    thumbnail: projectAsEnterprisesImg,
-    gallery: [
-      projectAsEnterprisesImg,
-    ],
-    features: [
-      "Dynamic B2B product catalog & technical specifications",
-      "Instant WhatsApp & Request-For-Quote (RFQ) dispatch workflow",
-      "Supply chain distribution & manufacturing capabilities showcase",
-      "High-intent industrial SEO for regional and pan-India buyers",
-      "Mobile-optimized lead generation and inquiry tracking",
-    ],
-    technology: ["React", "TypeScript", "Tailwind CSS", "B2B Catalog Engine", "WhatsApp Business API", "Industrial SEO"],
-    challenge: "M/s A. S. Enterprises required an authoritative digital enterprise presence to exhibit product ranges, build brand trust among commercial partners, and transition from traditional offline word-of-mouth to scalable digital inquiry channels.",
-    approach: "Constructed a bold, high-performance corporate platform emphasizing commercial credibility, structured technical specifications, quick request-for-quote (RFQ) pathways, and instant communication channels.",
-    solution: "Delivered a rapid-loading responsive portal with organized product directories, instant quotation CTAs, verified quality standards, and geo-targeted commercial search optimization.",
-    outcome: "Successfully established a credible digital footprint that increased qualified B2B inquiries and streamlined commercial client engagement.",
-  },
-  {
     id: "scanigo",
     projectTitle: "scanigo",
     clientName: "scanigo Technologies",
@@ -408,6 +384,31 @@ export const PROJECTS: Project[] = [
     solution: "An immersive property showcase providing prospective buyers with detailed property overviews, amenities, and instant consultation scheduling.",
     outcome: "Positioned the real-estate developer as a forward-thinking brand and simplified property exploration for qualified buyers.",
   },
+  {
+    id: "as-enterprises",
+    projectTitle: "M/s A. S. Enterprises",
+    clientName: "M/s A. S. Enterprises",
+    category: "Commercial & Enterprise Web Portal",
+    badge: "Commercial & Enterprise (2025)",
+    description: "Streamlined B2B quotation workflows and regional market discovery. A full-scale commercial enterprise web platform engineered to showcase wholesale product lines, verify business credentials, and automate buyer inquiries.",
+    thumbnail: projectASEnterprisesImg,
+    gallery: [
+      projectASEnterprisesImg,
+    ],
+    features: [
+      "Categorized commercial product & supply catalog",
+      "One-click WhatsApp quotation dispatch system",
+      "GST-compliant business credentials & compliance badge",
+      "High-intent local & regional B2B SEO optimization",
+      "Direct RFQ (Request for Quotation) digital engine",
+      "100% mobile-optimized procurement touchpoints",
+    ],
+    technology: ["React", "TypeScript", "Tailwind CSS", "Enterprise Catalog", "Formspree", "WhatsApp Business Gateway"],
+    challenge: "Industrial and commercial buyers required instant access to verified product specifications, wholesale price inquiries, and verifiable credentials without delayed back-and-forth phone calls.",
+    approach: "Designed a clean, authoritative corporate web portal highlighting product specifications, trade certifications, downloadable product sheets, and frictionless inquiry forms.",
+    solution: "Engineered a rapid, responsive web system featuring structured item categorizations, real-time RFQ routing, and instant WhatsApp communication channels.",
+    outcome: "Significantly accelerated quotation turnaround times, expanded regional commercial discovery, and reinforced strong market credibility for commercial partners.",
+  },
 ];
 
 // Testimonials from reference site
@@ -441,10 +442,10 @@ export const TESTIMONIALS: Testimonial[] = [
   },
   {
     id: "test-4",
-    quote: "THE STAR TECHNOLOGY engineered a stellar enterprise web platform for M/s A. S. Enterprises. Our commercial catalog is intuitive and our wholesale inquiries have expanded significantly.",
+    quote: "THE STAR TECHNOLOGY transformed our commercial presence. The web portal allows our B2B clients to explore products and request bulk quotations effortlessly. Our inquiry turnaround time improved dramatically.",
     initials: "AS",
     clientName: "M/s A. S. Enterprises",
-    company: "Commercial & Industrial Enterprise",
+    company: "Commercial & Industrial Supplies",
     projectTag: "M/S A. S. ENTERPRISES (2025)",
     year: "2025",
   },
